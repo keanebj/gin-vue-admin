@@ -2,6 +2,7 @@ package system
 
 import (
 	"context"
+
 	sysModel "github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
 	"github.com/pkg/errors"
@@ -49,6 +50,14 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "系统用户", Method: "POST", Path: "/user/admin_register", Description: "用户注册"},
 		{ApiGroup: "系统用户", Method: "POST", Path: "/user/getUserList", Description: "获取用户列表"},
 		{ApiGroup: "系统用户", Method: "PUT", Path: "/user/setUserInfo", Description: "设置用户信息"},
+		// 学习用户信息 增删改查
+		{ApiGroup: "系统用户", Method: "DELETE", Path: "/user/deleteUserV", Description: "删除用户"},
+		{ApiGroup: "系统用户", Method: "POST", Path: "/user/admin_registerV", Description: "用户注册"},
+		{ApiGroup: "系统用户", Method: "PUT", Path: "/user/setUserInfoV", Description: "设置用户信息"},
+		{ApiGroup: "系统用户", Method: "POST", Path: "/user/changePasswordV", Description: "修改密码（建议选择)"},
+		{ApiGroup: "系统用户", Method: "POST", Path: "/user/setUserAuthorityV", Description: "修改用户角色(必选)"},
+		{ApiGroup: "系统用户", Method: "POST", Path: "/user/resetPasswordV", Description: "重置用户密码"},
+
 		{ApiGroup: "系统用户", Method: "PUT", Path: "/user/setSelfInfo", Description: "设置自身信息(必选)"},
 		{ApiGroup: "系统用户", Method: "GET", Path: "/user/getUserInfo", Description: "获取自身信息(必选)"},
 		{ApiGroup: "系统用户", Method: "POST", Path: "/user/setUserAuthorities", Description: "设置权限组"},

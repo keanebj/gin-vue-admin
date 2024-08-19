@@ -115,8 +115,35 @@
             >重置密码</el-button>
           </template>
         </el-table-column>
+        <el-table-column
+          label="操作"
+          min-width="250"
+          fixed="right"
+        >
+          <template #default="scope">
+            <el-button
+              type="primary"
+              link
+              icon="delete"
+              @click="deleteUserFunc1(scope.row)"
+            >删除v</el-button>
+            <el-button
+              type="primary"
+              link
+              icon="edit"
+              @click="openEdit1(scope.row)"
+            >编辑v</el-button>
+            <el-button
+              type="primary"
+              link
+              icon="magic-stick"
+              @click="resetPasswordFunc1(scope.row)"
+            >重置密码v</el-button>
+          </template>
+        </el-table-column>
 
       </el-table>
+      
       <div class="gva-pagination">
         <el-pagination
           :current-page="page"
@@ -145,6 +172,11 @@
               type="primary"
               @click="enterAddUserDialog"
             >确 定</el-button>
+
+            <el-button
+              type="primary"
+              @click="enterAddUserDialogV"
+            >确 定V</el-button>
           </div>
         </div>
       </template>
@@ -230,13 +262,15 @@ import {
   getUserList,
   setUserAuthorities,
   register,
-  deleteUser
+  deleteUser,
+  registerV,
+  deleteUserV
 } from '@/api/user'
 
 import { getAuthorityList } from '@/api/authority'
 import CustomPic from '@/components/customPic/index.vue'
 import WarningBar from '@/components/warningBar/warningBar.vue'
-import { setUserInfo, resetPassword } from '@/api/user.js'
+import { setUserInfo, resetPassword ,resetPasswordV,setSelfInfoV,setUserInfoV} from '@/api/user.js'
 
 import { nextTick, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -333,6 +367,33 @@ const resetPasswordFunc = (row) => {
     }
   })
 }
+
+const resetPasswordFunc1 = (row) => {
+  ElMessageBox.confirm(
+    '是否将此用户密码重置为123456?',
+    '警告',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  ).then(async() => {
+    const res = await resetPasswordV({
+      ID: row.ID,
+    })
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: res.msg,
+      })
+    } else {
+      ElMessage({
+        type: 'error',
+        message: res.msg,
+      })
+    }
+  })
+}
 const setAuthorityIds = () => {
   tableData.value && tableData.value.forEach((user) => {
     user.authorityIds = user.authorities && user.authorities.map(i => {
@@ -359,6 +420,19 @@ const deleteUserFunc = async(row) => {
     type: 'warning'
   }).then(async() => {
     const res = await deleteUser({ id: row.ID })
+    if (res.code === 0) {
+      ElMessage.success('删除成功')
+      await getTableData()
+    }
+  })
+}
+const deleteUserFunc1 = async(row) => {
+  ElMessageBox.confirm('确定要删除吗?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(async() => {
+    const res = await deleteUserV({ id: row.ID })
     if (res.code === 0) {
       ElMessage.success('删除成功')
       await getTableData()
@@ -427,6 +501,33 @@ const enterAddUserDialog = async() => {
   })
 }
 
+const enterAddUserDialogV = async() => {
+  userInfo.value.authorityId = userInfo.value.authorityIds[0]
+  userForm.value.validate(async valid => {
+    if (valid) {
+      const req = {
+        ...userInfo.value
+      }
+      if (dialogFlag.value === 'add') {
+        const res = await registerV(req)
+        if (res.code === 0) {
+          ElMessage({ type: 'success', message: '创建成功' })
+          await getTableData()
+          closeAddUserDialog()
+        }
+      }
+      if (dialogFlag.value === 'edit') {
+        const res = await setUserInfoV(req)
+        if (res.code === 0) {
+          ElMessage({ type: 'success', message: '编辑成功' })
+          await getTableData()
+          closeAddUserDialog()
+        }
+      }
+    }
+  })
+}
+
 const addUserDialog = ref(false)
 const closeAddUserDialog = () => {
   userForm.value.resetFields()
@@ -472,6 +573,13 @@ const openEdit = (row) => {
   userInfo.value = JSON.parse(JSON.stringify(row))
   addUserDialog.value = true
 }
+
+const openEdit1 = (row) => {
+  dialogFlag.value = 'edit'
+  userInfo.value = JSON.parse(JSON.stringify(row))
+  addUserDialog.value = true
+}
+
 
 const switchEnable = async(row) => {
   userInfo.value = JSON.parse(JSON.stringify(row))

@@ -22,5 +22,11 @@ func DefaultCasbin() []CasbinInfo {
 		{Path: "/user/setUserAuthority", Method: "POST"},
 		{Path: "/user/setUserInfo", Method: "PUT"},
 		{Path: "/user/getUserInfo", Method: "GET"},
+		// 学习增删改查
+		{Path: "/user/admin_registerV", Method: "POST"},
+		{Path: "/user/changePasswordV", Method: "POST"},
+		{Path: "/user/setUserAuthorityV", Method: "POST"},
+		{Path: "/user/setUserInfoV", Method: "PUT"},
+		{Path: "/user/getUserInfoV", Method: "GET"},
 	}
 }

@@ -85,6 +85,14 @@ func (i *initCasbin) InitializeData(ctx context.Context) (context.Context, error
 		{Ptype: "p", V0: "888", V1: "/user/setUserAuthority", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/user/setUserAuthorities", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/user/resetPassword", V2: "POST"},
+		// new 增删改查
+		{Ptype: "p", V0: "888", V1: "/user/setUserInfoV", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/user/setSelfInfoV", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/user/deleteUserV", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/user/changePasswordV", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/user/setUserAuthorityV", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/user/setUserAuthoritiesV", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/user/resetPasswordV", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/fileUploadAndDownload/findFile", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/fileUploadAndDownload/breakpointContinueFinish", V2: "POST"},

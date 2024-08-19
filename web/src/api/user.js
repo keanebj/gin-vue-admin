@@ -34,6 +34,20 @@ export const register = (data) => {
   })
 }
 
+
+// @Summary 用户管理员注册
+// @Produce  application/json
+// @Param data body {username:"string",password:"string"}
+// @Router /base/resige [post]
+export const registerV = (data) => {
+  return service({
+    url: '/user/admin_registerV',
+    method: 'post',
+    data: data
+  })
+}
+
+
 // @Summary 修改密码
 // @Produce  application/json
 // @Param data body {username:"string",password:"string",newPassword:"string"}
@@ -78,6 +92,21 @@ export const setUserAuthority = (data) => {
   })
 }
 
+// @Tags User
+// @Summary 设置用户权限
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body api.SetUserAuth true "设置用户权限"
+// @Success 200 {string} json "{"success":true,"data":{},"msg":"修改成功"}"
+// @Router /user/setUserAuthorityV [post]
+export const setUserAuthorityV = (data) => {
+  return service({
+    url: '/user/setUserAuthorityV',
+    method: 'post',
+    data: data
+  })
+}
 // @Tags SysUser
 // @Summary 删除用户
 // @Security ApiKeyAuth
@@ -89,6 +118,22 @@ export const setUserAuthority = (data) => {
 export const deleteUser = (data) => {
   return service({
     url: '/user/deleteUser',
+    method: 'delete',
+    data: data
+  })
+}
+
+// @Tags SysUser
+// @Summary 删除用户
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.SetUserAuth true "删除用户"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
+// @Router /user/deleteUser [delete]
+export const deleteUserV = (data) => {
+  return service({
+    url: '/user/deleteUserV',
     method: 'delete',
     data: data
   })
@@ -117,10 +162,43 @@ export const setUserInfo = (data) => {
 // @Produce application/json
 // @Param data body model.SysUser true "设置用户信息"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
+// @Router /user/setUserInfo [put]
+export const setUserInfoV = (data) => {
+  return service({
+    url: '/user/setUserInfoV', 
+    method: 'put',
+    data: data
+  })
+}
+
+
+// @Tags SysUser
+// @Summary 设置用户信息
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body model.SysUser true "设置用户信息"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
 // @Router /user/setSelfInfo [put]
 export const setSelfInfo = (data) => {
   return service({
     url: '/user/setSelfInfo',
+    method: 'put',
+    data: data
+  })
+}
+
+// @Tags SysUser
+// @Summary 设置用户信息
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body model.SysUser true "设置用户信息"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
+// @Router /user/setSelfInfo [put]
+export const setSelfInfoV = (data) => {
+  return service({
+    url: '/user/setSelfInfoV', 
     method: 'put',
     data: data
   })
@@ -143,6 +221,23 @@ export const setUserAuthorities = (data) => {
 }
 
 // @Tags User
+// @Summary 设置用户权限
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body api.setUserAuthorities true "设置用户权限"
+// @Success 200 {string} json "{"success":true,"data":{},"msg":"修改成功"}"
+// @Router /user/setUserAuthorities [post]
+export const setUserAuthoritiesV = (data) => {
+  return service({
+    url: '/user/setUserAuthoritiesV',
+    method: 'post',
+    data: data
+  })
+}
+
+
+// @Tags User
 // @Summary 获取用户信息
 // @Security ApiKeyAuth
 // @accept application/json
@@ -156,10 +251,34 @@ export const getUserInfo = () => {
   })
 }
 
+// @Tags User
+// @Summary 获取用户信息
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {string} json "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /user/getUserInfo [get]
+export const getUserInfoV = () => {
+  return service({
+    url: '/user/getUserInfoV',
+    method: 'get'
+  })
+}
+
+
 export const resetPassword = (data) => {
   return service({
     url: '/user/resetPassword',
     method: 'post',
     data: data
+  })
+}
+
+
+export const resetPasswordV = (data) => {
+  return service({
+    url: '/user/resetPasswordV',
+    method: 'post',
+    data: data  
   })
 }
