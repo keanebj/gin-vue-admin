@@ -270,7 +270,7 @@ import {
 import { getAuthorityList } from '@/api/authority'
 import CustomPic from '@/components/customPic/index.vue'
 import WarningBar from '@/components/warningBar/warningBar.vue'
-import { setUserInfo, resetPassword ,resetPasswordV,setSelfInfoV,setUserInfoV} from '@/api/user.js'
+import { setUserInfo, resetPassword ,resetPasswordV,setUserInfoV} from '@/api/user.js'
 
 import { nextTick, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
