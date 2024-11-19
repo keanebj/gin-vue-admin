@@ -189,16 +189,16 @@ export const setSelfInfo = (data) => {
 }
 
 // @Tags SysUser
-// @Summary 设置用户信息
+// @Summary 设置自身界面配置
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body model.SysUser true "设置用户信息"
+// @Param data body model.SysUser true "设置自身界面配置"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
-// @Router /user/setSelfInfo [put]
-export const setSelfInfoV = (data) => {
+// @Router /user/setSelfSetting [put]
+export const setSelfSetting = (data) => {
   return service({
-    url: '/user/setSelfInfoV', 
+    url: '/user/setSelfSetting',
     method: 'put',
     data: data
   })
