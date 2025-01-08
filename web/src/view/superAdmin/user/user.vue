@@ -192,9 +192,6 @@
               type="primary"
               @click="enterAddUserDialogV"
             >确 定V</el-button>
-            <el-button type="primary" @click="enterAddUserDialog"
-              >确 定</el-button
-            >
           </div>
         </div>
       </template>
@@ -262,13 +259,13 @@
     getUserList,
     setUserAuthorities,
     register,
-    deleteUser
+    deleteUser,
   } from '@/api/user'
 
   import { getAuthorityList } from '@/api/authority'
   import CustomPic from '@/components/customPic/index.vue'
   import WarningBar from '@/components/warningBar/warningBar.vue'
-  import { setUserInfo, resetPassword } from '@/api/user.js'
+  import { setUserInfo, resetPassword ,setUserInfoV} from '@/api/user.js'
 
   import { nextTick, ref, watch } from 'vue'
   import { ElMessage, ElMessageBox } from 'element-plus'
@@ -486,6 +483,34 @@
     })
   }
 
+  const enterAddUserDialogV = async () => {
+    userInfo.value.authorityId = userInfo.value.authorityIds[0]
+    userForm.value.validate(async (valid) => {
+      if (valid) {
+        const req = {
+          ...userInfo.value
+        }
+        if (dialogFlag.value === 'add') {
+          const res = await register(req)
+          if (res.code === 0) {
+            ElMessage({ type: 'success', message: '创建成功' })
+            await getTableData()
+            closeAddUserDialog()
+          }
+        }
+        if (dialogFlag.value === 'edit') {
+          const res = await setUserInfoV(req)
+          if (res.code === 0) {
+            ElMessage({ type: 'success', message: '编辑成功' })
+            await getTableData()
+            closeAddUserDialog()
+          }
+        }
+      }
+    })
+  }
+
+
   const addUserDialog = ref(false)
   const closeAddUserDialog = () => {
     userForm.value.resetFields()
@@ -531,6 +556,12 @@
     userInfo.value = JSON.parse(JSON.stringify(row))
     addUserDialog.value = true
   }
+  const openEdit1 = (row) => {
+    dialogFlag.value = 'edit'
+    userInfo.value = JSON.parse(JSON.stringify(row))
+    addUserDialog.value = true
+  }
+  
 
   const switchEnable = async (row) => {
     userInfo.value = JSON.parse(JSON.stringify(row))
